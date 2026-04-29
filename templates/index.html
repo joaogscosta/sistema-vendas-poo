@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meu Sistema UnB</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>🏪 Painel de Vendas</h1>
+    <div class="container">
+        {% for p in estoque %}
+        <div class="card">
+            <h2>{{ p.nome }}</h2>
+            <p>Estoque: <strong>{{ p.qtd }}</strong></p>
+            <p>Preço: R$ {{ p.preço }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
