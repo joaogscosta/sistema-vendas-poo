@@ -1,6 +1,3 @@
-
-
-
 class Produto:
     def __init__(self, nome, qtd, preço):
         self.nome = nome
@@ -87,7 +84,7 @@ class Produto_Perecivel(Produto):
 class Venda:
     def __init__(self, cliente, produto, quantidade):
         self.cliente = cliente
-        self.produto = produto9
+        self.produto = produto
         self.quantidade = quantidade
         self.valor_total = produto.preço * quantidade
         
@@ -106,45 +103,3 @@ class Venda:
         self.produto.adicionar_novo(self.quantidade)
         sistema.valor_caixa -= self.valor_total
         return f"Venda cancelada: {self.cliente.nome} cancelou a compra de {self.quantidade} de {self.produto.nome} por R${self.valor_total:.2f}"
-
-p1 = Cliente(1010, "Joao")
-p2 = Cliente(1020, "Maria")
-p3 = Cliente(1030, "Pedro")
-sistema = Sistema()
-sistema.cadastrar_cliente(p1)
-sistema.cadastrar_cliente(p2)
-sistema.cadastrar_cliente(p3)
-prod1 = Produto("Coca-cola", 10, 5.0)
-prod2 = Produto("Pepsi", 15, 4.5)
-sistema.cadastrar_produto(prod1)
-sistema.cadastrar_produto(prod2) 
-print(prod1.visualizar_produto())
-print(prod2.visualizar_produto())
-sistema.adicionar_novo(prod1, 5) 
-print(prod1.visualizar_produto())
-p4 = Cliente(1040, "Ana")
-sistema.cadastrar_cliente(p4)
-print(sistema.exibir_clientes())
-print(sistema.exibir_estoque())
-prod4 = Produto("Fanta", 20, 4.0)
-sistema.cadastrar_produto(prod4)
-print(sistema.exibir_estoque())
-print(prod1.remover_unidade(3))
-print(sistema.exibir_estoque())
-print(prod1.adicionar_novo(10))
-print(sistema.exibir_estoque())
-venda1 = Venda(p1, prod1, 2)
-print(venda1.processar_venda(sistema))
-print(sistema.exibir_estoque())
-print(f"Valor no caixa: R${sistema.valor_caixa:.2f}")
-print(venda1.cancelar_venda(sistema))
-print(sistema.exibir_estoque())
-print(venda1.processar_venda(sistema))
-print(sistema.exibir_estoque())
-venda2 = Venda(p1, prod1, 30)
-print(venda2.processar_venda(sistema))
-print(sistema.exibir_estoque())
-venda3 = Venda(p1, prod1, 15)
-print(venda3.processar_venda(sistema))
-print(sistema.exibir_estoque())
-print(f"Valor no caixa: R${sistema.valor_caixa:.2f}")
