@@ -37,12 +37,19 @@ class Sistema:
     def __init__(self):
         self.clientes = []
         self.estoque = []
+        self.vendas = []
         self.valor_caixa = 0.0
     
     
     def exibir_clientes(self):
         return [cliente.visualizar_cliente() for cliente in self.clientes]
     
+    def buscar_cliente(self, id_cliente):
+     for cliente in self.clientes:
+        if str(cliente.id) == str(id_cliente): # str() evita erro se um for int e outro string
+            return cliente
+     return None
+
     def exibir_estoque(self):
         return [produto.visualizar_produto() for produto in self.estoque]
     
@@ -51,6 +58,12 @@ class Sistema:
         
     def cadastrar_produto(self, novo_produto):
         self.estoque.append(novo_produto)
+        
+    def buscar_produto(self, nome_produto):
+     for produto in self.estoque:
+        if produto.nome.strip().title() == nome_produto.strip().title():
+            return produto
+     return None
         
     def adicionar_novo(self, produto, quantidade):
         for item in self.estoque:
@@ -88,14 +101,17 @@ class Venda:
         self.quantidade = quantidade
         self.valor_total = produto.preço * quantidade
         
+    
     def processar_venda(self, sistema):
-        if self.produto.qtd >= self.quantidade:
-            self.produto.remover_unidade(self.quantidade)
-            sistema.valor_caixa += self.valor_total
-            return f"Venda processada: {self.cliente.nome} comprou {self.quantidade} de {self.produto.nome} por R${self.valor_total:.2f}"
-        else:
-            return "Erro: Estoque insuficiente para processar a venda."
-        
+     if self.produto.qtd >= self.quantidade:
+        self.produto.remover_unidade(self.quantidade)
+        sistema.valor_caixa += self.valor_total
+        # Retorna uma TUPLA com dois valores: (True, "mensagem")
+        return True, f"Venda processada: {self.cliente.nome} comprou {self.quantidade} de {self.produto.nome} por R${self.valor_total:.2f}"
+     else:
+        # Retorna uma TUPLA com dois valores: (False, "mensagem")
+        return False, "Erro: Estoque insuficiente para processar a venda."
+    
     def visualizar_venda(self):
         return f"Venda: {self.cliente.nome} comprou {self.quantidade} de {self.produto.nome} por R${self.valor_total:.2f}"
     

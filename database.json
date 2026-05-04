@@ -1,0 +1,28 @@
+{
+    "clientes": [
+        {
+            "id": "11",
+            "nome": "Aaa"
+        },
+        {
+            "id": "13",
+            "nome": "Asa"
+        }
+    ],
+    "produtos": [
+        {
+            "nome": "Coca",
+            "qtd": 2,
+            "preço": 20.0
+        }
+    ],
+    "vendas": [
+        {
+            "cliente_id": "13",
+            "produto_nome": "Coca",
+            "quantidade": 3,
+            "valor_total": 60.0
+        }
+    ],
+    "caixa": 220.0
+}
