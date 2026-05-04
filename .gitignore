@@ -1,0 +1,13 @@
+# Arquivos de banco de dados local
+database.json
+
+# Pastas temporárias do Python
+__pycache__/
+*.pyc
+
+# Configurações do VS Code
+.vscode/
+
+# Ambientes virtuais (se você usar)
+venv/
+.env
