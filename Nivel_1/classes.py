@@ -1,3 +1,11 @@
+class Usuario:
+    def __init__(self, login, senha):
+        self.login = login
+        self.senha = senha
+        
+    def verificar_senha(self, senha_digitada):
+        return self.senha == senha_digitada
+    
 class Produto:
     def __init__(self, nome, qtd, preço):
         self.nome = nome
@@ -39,6 +47,7 @@ class Sistema:
         self.estoque = []
         self.vendas = []
         self.valor_caixa = 0.0
+        self.usuarios = []  # Lista para armazenar usuários do sistema
     
     
     def exibir_clientes(self):
@@ -77,7 +86,22 @@ class Sistema:
         self.clientes = [cliente for cliente in self.clientes if cliente.id != id_cliente]
        
     def remover_produto(self, nome_produto):
-        self.estoque = [produto for produto in self.estoque if produto.nome != nome_produto]   
+        self.estoque = [produto for produto in self.estoque if produto.nome != nome_produto]  
+        
+    def buscar_usuario(self, login):
+        
+      for u in self.usuarios:
+        if u.login == login:
+            return u
+      return None
+  
+    def autenticar(self, login_digitado, senha_digitada):
+        usuario = self.buscar_usuario(login_digitado)
+        
+        if usuario and usuario.verificar_senha(senha_digitada):
+            return usuario  # Login com sucesso
+            
+        return None    
         
 class Produto_Perecivel(Produto):
     def __init__(self, nome, qtd, preço, data_validade):

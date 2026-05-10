@@ -1,19 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Meu Sistema UnB</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Controle - Sistema de Vendas</title>
+    <!-- Um CSS básico para não ficar tudo bagunçado -->
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { padding: 20px; border: 1px solid #ddd; border-radius: 8px; text-align: center; text-decoration: none; color: #333; background-color: #f9f9f9; transition: 0.3s; }
+        .card:hover { background-color: #e2e2e2; transform: translateY(-5px); }
+        .btn-logout { color: red; text-decoration: none; font-weight: bold; }
+        .alert { padding: 10px; margin-bottom: 20px; border-radius: 5px; background-color: #d4edda; color: #155724; }
+    </style>
 </head>
 <body>
-    <h1>🏪 Painel de Vendas</h1>
-    <div class="container">
-        {% for p in estoque %}
-        <div class="card">
-            <h2>{{ p.nome }}</h2>
-            <p>Estoque: <strong>{{ p.qtd }}</strong></p>
-            <p>Preço: R$ {{ p.preço }}</p>
+
+    <div class="header">
+        <h1>Sistema de Ve</h1>
+        <div>
+            <span>Olá, <strong>{{ usuario }}</strong>!</span> | 
+            <a href="{{ url_for('logout') }}" class="btn-logout">Sair</a>
         </div>
-        {% endfor %}
     </div>
+
+    <!-- Área para mensagens de sucesso/erro -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="menu">
+        <a href="/vendas" class="card">
+            <h3>🛒 Realizar Venda</h3>
+            <p>Vender produtos e baixar estoque</p>
+        </a>
+
+        <a href="/estoque" class="card">
+            <h3>📦 Estoque</h3>
+            <p>Ver e cadastrar produtos</p>
+        </a>
+
+        <a href="/clientes" class="card">
+            <h3>👥 Clientes</h3>
+            <p>Gerenciar base de clientes</p>
+        </a>
+
+        <a href="/cadastrar_usuario" class="card">
+            <h3>🔐 Usuários</h3>
+            <p>Cadastrar novos acessos</p>
+        </a>
+    </div>
+
+    <div style="margin-top: 50px; padding: 20px; border-top: 1px solid #eee; color: #666;">
+        <p><strong>Status do Sistema:</strong> Conectado ao banco de dados JSON.</p>
+    </div>
+
 </body>
 </html>

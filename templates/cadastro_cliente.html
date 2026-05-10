@@ -1,0 +1,25 @@
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Clientes</title>
+    <!-- O Flask busca na pasta 'static' o arquivo dentro de 'css/cadastrocliente.css' -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastrocliente.css') }}">
+</head>
+
+<form class="form-cadastro-cliente" action="{{ url_for('cadastrar_cliente') }}" method="POST">
+    <label class="titulo">Nome:</label>
+    <input type="text" name="nome" required>
+    
+    <label class="titulo-interno">Id do Cliente:</label>
+    <input type="email" name="email" required>
+    
+    <button class="botao" type="submit">Cadastrar Cliente</button>
+
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}

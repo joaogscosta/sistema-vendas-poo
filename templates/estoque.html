@@ -1,0 +1,13 @@
+<form class="form-estoque" action="{{ url_for('atualizar_estoque') }}" method="POST">
+    <label class="titulo">Produto:</label>
+    <select class="form-control" name="produto_id" required>
+        {% for produto in produtos %}
+            <option value="{{ produto.id }}">{{ produto.nome }}</option>
+        {% endfor %}
+    </select>
+    
+    <label class="titulo-interno">Quantidade:</label>
+    <input type="number" class="form-control" name="quantidade" required>
+    
+    <button class="botao" type="submit">Atualizar Estoque</button>  
+</form>

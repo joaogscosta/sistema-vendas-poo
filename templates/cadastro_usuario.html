@@ -1,0 +1,19 @@
+<!-- Adicionamos o < que faltava e o action para a rota correta -->
+<form action="{{ url_for('cadastrar_usuario_web') }}" method="POST">
+    <label>Login:</label>
+    <input type="text" name="login" required>
+    
+    <label>Senha:</label>
+    <input type="password" name="senha" required>
+    
+    <button type="submit">Cadastrar</button>
+</form>
+
+<!-- O restante do seu código de mensagens (flash) está correto! -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}

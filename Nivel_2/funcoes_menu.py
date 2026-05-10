@@ -1,11 +1,30 @@
-from Nivel_1.classes import Cliente, Produto, Venda, Sistema
+from Nivel_1.classes import Cliente, Produto, Usuario, Venda, Sistema
 from Nivel_3.dados import   carregar_dados, salvar_dados
 
 
 meu_sistema = Sistema()
 carregar_dados(meu_sistema)
 
-def cadastro_cliente():
+def cadastro_usuario(meu_sistema):
+    print(f"Usuários na memória: {[u.login for u in meu_sistema.usuarios]}")
+    print("\n--- CADASTRO DE USUÁRIO ---")
+    login = input("Digite o login: ").strip()
+    
+    # Verifica se já existe para não duplicar
+    if meu_sistema.buscar_usuario(login):
+        print("Erro: Esse login já existe!")
+        return
+
+    senha = input("Digite a senha: ")
+   
+    
+    # Cria o objeto e salva
+    novo_u = Usuario(login, senha)
+    meu_sistema.usuarios.append(novo_u)
+    salvar_dados(meu_sistema) # Aqui o Nível 3 faz o trabalho dele!
+    print(f"Usuário {login} cadastrado com sucesso!")
+
+def cadastro_cliente(meu_sistema):
  
     id_cliente = input("Digite o id do cliente:")
     nome_cliente = input("Digite o nome do cliente:").strip().title()
@@ -147,15 +166,16 @@ def exibi_menu():
     print("1 - Cadastrar Cliente")
     print("2 - Visualizar Clientes")
     print("3 - Excluir Cliente")
-    print("4 - Cadastrar Produto")
-    print("5 - Visualizar Produtos")
-    print("6 - Adicionar Quantidade ao Produto")
-    print("7 - Remover Quantidade do Produto")
-    print("8 - Processar Venda")
-    print("9 - Cancelar Venda")
-    print("10 - Histórico de Vendas")
-    print("11 - Ver Saldo do Caixa")
-    print("12 - Sair") 
+    print("4 - Cadastrar Usuario")
+    print("5 - Cadastrar Produto")
+    print("6 - Visualizar Produtos")
+    print("7 - Adicionar Quantidade ao Produto")
+    print("8 - Remover Quantidade do Produto")
+    print("9 - Processar Venda")
+    print("10 - Cancelar Venda")
+    print("11 - Histórico de Vendas")
+    print("12 - Ver Saldo do Caixa")
+    print("13 - Sair") 
     
     
 def menu_principal():
@@ -164,28 +184,30 @@ def menu_principal():
      opcao_1 = input("Escolha uma opçao:")
      match opcao_1:
         case "1":
-            cadastro_cliente()
+            cadastro_cliente(meu_sistema)
         case "2":
             visualiza_cliente()
         case "3":
             excluir_cliente()   
         case "4":
-            cadastro_produto()
-        case "5":
-            visualiza_produto()
+            cadastro_usuario(meu_sistema)
+        case "5" :
+            cadastro_produto()   
         case "6":
-            adiciona_qtd()
+            visualiza_produto()
         case "7":
-            remove_qtd()
+            adiciona_qtd()
         case "8":
-            processa_venda()
+            remove_qtd()
         case "9":
-            cancela_venda()
+            processa_venda()
         case "10":
-            historico_vendas(meu_sistema)
+            cancela_venda()
         case "11":
-            saldo_caixa()
+            historico_vendas(meu_sistema)
         case "12":
+            saldo_caixa()
+        case "13":
             salvar_dados(meu_sistema)  
             sair()
             break

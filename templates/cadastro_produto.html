@@ -1,0 +1,17 @@
+<form class="form-cadastro-produto" action="{{ url_for('cadastrar_produto') }}" method="POST">
+    <label class="titulo">Nome do Produto:</label>
+    <input type="text" name="nome" required>
+    
+    <label class="titulo-interno">Preço:</label>
+    <input type="number" step="0.01" name="preco" required>
+    
+    <button class="botao" type="submit">Cadastrar Produto</button>
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
