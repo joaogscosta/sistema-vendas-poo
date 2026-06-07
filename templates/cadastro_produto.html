@@ -1,17 +1,85 @@
-<form class="form-cadastro-produto" action="{{ url_for('cadastrar_produto') }}" method="POST">
-    <label class="titulo">Nome do Produto:</label>
-    <input type="text" name="nome" required>
-    
-    <label class="titulo-interno">Preço:</label>
-    <input type="number" step="0.01" name="preco" required>
-    
-    <button class="botao" type="submit">Cadastrar Produto</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Estoque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro_produto.css') }}">
+</head>
+<body>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+    <div class="container">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-container">
+              {% for category, message in messages %}
+                <div style="color: {% if category == 'danger' %}#dc3545{% else %}#28a745{% endif %}; padding: 8px; font-weight: bold;">
+                    {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <h2>📦 Cadastrar Novo Produto</h2>
+        <form class="form-cadastro" action="{{ url_for('cadastrar_produto') }}" method="POST">
+            <div class="input-grupo">
+                <label>Nome do Produto:</label>
+                <input type="text" name="nome" required placeholder="Ex: Teclado Mecânico">
+            </div>
+            
+            <div class="input-grupo">
+                <label>Preço (R$):</label>
+                <input type="number" name="preco" step="0.01" min="0" required placeholder="0.00">
+            </div>
+
+            <div class="input-grupo">
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" min="0" required placeholder="0">
+            </div>
+            
+            <button type="submit">Salvar Produto</button>
+        </form>
+
+        <h2>📋 Estoque Atual</h2>
+        <div class="tabela-container">
+            <table class="tabela-produtos">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preço Un.</th>
+                        <th>Quantidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in lista_produtos %}
+                    <tr>
+                        <td><strong>{{ produto.nome }}</strong></td>
+                        <td>R$ {{ "%.2f"|format(produto.preco) }}</td>
+                        
+                        <td>{{ produto.qtd }}</td> 
+                        
+                        <td>
+                            <a href="{{ url_for('excluir_produto', nome_produto=produto.nome) }}" 
+                               style="color: #dc3545; text-decoration: none; font-weight: bold; padding: 4px 8px; border: 1px solid #dc3545; border-radius: 4px; font-size: 13px;"
+                               onclick="return confirm('Deseja mesmo remover {{ produto.nome }} do estoque?')">
+                               ❌ Excluir
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="sem-dados">Nenhum produto cadastrado no estoque.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn-voltar" style="display: inline-block; margin-top: 25px;">⬅ Voltar ao Painel Principal</a>
+    </div>
+
+</body>
+</html>

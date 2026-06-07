@@ -18,7 +18,7 @@
 <body>
 
     <div class="header">
-        <h1>Sistema de Ve</h1>
+        <h1>Sistema de Vendas</h1>
         <div>
             <span>Olá, <strong>{{ usuario }}</strong>!</span> | 
             <a href="{{ url_for('logout') }}" class="btn-logout">Sair</a>
@@ -35,20 +35,25 @@
     {% endwith %}
 
     <div class="menu">
-        <a href="/vendas" class="card">
-            <h3>🛒 Realizar Venda</h3>
-            <p>Vender produtos e baixar estoque</p>
+
+        <a href="{{ url_for('listar_usuarios') }}" class="card">
+    <h3>👥 Usuários</h3>
+    <p>Ver quem tem acesso ao sistema</p>
+</a>
+        <a href="{{ url_for('cadastrar_venda') }}" class="card">
+         <h3>💰 Vendas</h3>
+         <p>Registrar e gerenciar pedidos</p>
         </a>
 
-        <a href="/estoque" class="card">
+       <a href="{{ url_for('cadastrar_produto') }}" class="card">
             <h3>📦 Estoque</h3>
             <p>Ver e cadastrar produtos</p>
         </a>
 
-        <a href="/clientes" class="card">
-            <h3>👥 Clientes</h3>
-            <p>Gerenciar base de clientes</p>
-        </a>
+      <a href="{{ url_for('cadastrar_cliente') }}" class="card">
+    <h3>👥 Clientes</h3>
+    <p>Gerenciar base de clientes</p>
+</a>
 
         <a href="/cadastrar_usuario" class="card">
             <h3>🔐 Usuários</h3>

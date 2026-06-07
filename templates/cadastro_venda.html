@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Vendas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro_venda.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-container">
+              {% for category, message in messages %}
+                <div style="color: {% if category == 'danger' %}#dc3545{% else %}#28a745{% endif %}; padding: 8px; font-weight: bold;">
+                    {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <h2>💰 Registrar Nova Venda</h2>
+        <form class="form-cadastro" action="{{ url_for('cadastrar_venda') }}" method="POST">
+            
+            <div class="input-grupo">
+                <label>Selecione o Cliente:</label>
+                <select name="id_cliente" required>
+                    <option value="" disabled selected>-- Escolha um cliente --</option>
+                    {% for cliente in lista_clientes %}
+                        <option value="{{ cliente.id }}">{{ cliente.nome }} (ID: {{ cliente.id }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="input-grupo">
+                <label>Selecione o Produto:</label>
+                <select name="nome_produto" required>
+                    <option value="" disabled selected>-- Escolha um produto --</option>
+                    {% for produto in lista_produtos %}
+                        <option value="{{ produto.nome }}">{{ produto.nome }} (Qtd: {{ produto.qtd }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="input-grupo">
+                <label>Quantidade a Vender:</label>
+                <input type="number" name="quantidade" min="1" required placeholder="Ex: 2">
+            </div>
+            
+            <button type="submit">Finalizar Venda</button>
+        </form>
+
+        <h2>📜 Histórico de Vendas</h2>
+        <div class="tabela-container">
+            <table class="tabela-vendas">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Produto</th>
+                        <th>Qtd</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venda in lista_vendas %}
+                    <tr>
+                        <td>{{ venda.cliente.nome }}</td>
+                        <td>{{ venda.produto.nome }}</td>
+                        <td>{{ venda.quantidade }}</td>
+                        <td><strong>R$ {{ "%.2f"|format(venda.valor_total) }}</strong></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="sem-dados">Nenhuma venda realizada até o momento.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn-voltar" style="display: inline-block; margin-top: 25px;">⬅ Voltar ao Painel Principal</a>
+    </div>
+
+</body>
+</html>

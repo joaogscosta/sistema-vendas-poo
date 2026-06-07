@@ -1,25 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Clientes</title>
-    <!-- O Flask busca na pasta 'static' o arquivo dentro de 'css/cadastrocliente.css' -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastrocliente.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Clientes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro_cliente.css') }}">
 </head>
+<body>
 
-<form class="form-cadastro-cliente" action="{{ url_for('cadastrar_cliente') }}" method="POST">
-    <label class="titulo">Nome:</label>
-    <input type="text" name="nome" required>
-    
-    <label class="titulo-interno">Id do Cliente:</label>
-    <input type="email" name="email" required>
-    
-    <button class="botao" type="submit">Cadastrar Cliente</button>
+    <div class="container">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-container">
+              {% for category, message in messages %}
+                <div style="color: '{% if category == 'danger' %}#dc3545{% else %}#28a745{% endif %}; padding: 8px; font-weight: bold;">
+                    {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
 
-</form>
+        <h2>➕ Cadastrar Novo Cliente</h2>
+        <form class="form-cadastro" action="{{ url_for('cadastrar_cliente') }}" method="POST">
+            <div class="input-grupo">
+                <label>Nome do Cliente:</label>
+                <input type="text" name="nome" required placeholder="Ex: João Silva">
+            </div>
+            
+            <div class="input-grupo">
+                <label>ID / Código:</label>
+                <input type="text" name="id_cliente" required placeholder="Ex: 1020">
+            </div>
+            
+            <button type="submit">Salvar Cliente</button>
+        </form>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
+        <h2>👥 Clientes Cadastrados</h2>
+        <div class="tabela-container">
+            <table class="tabela-clientes">
+                <thead>
+                    <tr>
+                        <th>ID / Código</th>
+                        <th>Nome</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tbody>
+    {% for cliente in lista_clientes %}
+    <tr>
+        <td><strong>{{ cliente.id }}</strong></td>      
+        <td>{{ cliente.nome }}</td> 
+        <td>
+            <a href="{{ url_for('excluir_cliente', id_cliente=cliente.id) }}" 
+   class="btn-excluir"
+   onclick="return confirm('Tem certeza que deseja excluir o cliente ' + '{{ cliente.nome }}' + '?')">
+   ❌ Excluir
+</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="3" class="sem-dados">Nenhum cliente cadastrado no sistema até o momento.</td>
+    </tr>
     {% endfor %}
-  {% endif %}
-{% endwith %}
+</tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn-voltar" style='display: inline-block; margin-top: 25px;'>⬅ Voltar ao Painel Principal</a>
+    </div>
+
+</body>
+</html>

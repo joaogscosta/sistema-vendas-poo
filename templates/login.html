@@ -1,20 +1,26 @@
 <!-- templates/login.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title class="titulo">Login - Sistema de Vendas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Vendas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
     <h2 class="titulo-menor">Entrar no Sistema</h2>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        {% for category, message in messages %}
-          <div style="color: {% if category == 'danger' %}red{% else %}green{% endif %};">
-              {{ message }}
-          </div>
-        {% endfor %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div style="color: {% if category == 'danger' %}#dc3545{% else %}#28a745{% endif %}; padding: 8px; margin-bottom: 5px;">
+                {{ message }}
+            </div>
+          {% endfor %}
+        </div>
       {% endif %}
     {% endwith %}
 

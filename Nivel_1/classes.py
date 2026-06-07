@@ -1,4 +1,4 @@
-class Usuario:
+class Usuario():
     def __init__(self, login, senha):
         self.login = login
         self.senha = senha
@@ -7,10 +7,10 @@ class Usuario:
         return self.senha == senha_digitada
     
 class Produto:
-    def __init__(self, nome, qtd, preço):
+    def __init__(self, nome, qtd, preco):
         self.nome = nome
         self.qtd = qtd
-        self.preço = preço
+        self.preco = preco
         
     def adicionar_novo(self, quantidade_nova):
         self.qtd += quantidade_nova
@@ -26,10 +26,10 @@ class Produto:
         self.nome = novo_nome    
     
     def editar_preço(self, novo_preço):
-        self.preço = novo_preço  
+        self.preco = novo_preço  
     
     def visualizar_produto(self):
-        return f"{self.nome} - Quantidade: {self.qtd} - Preço: R${self.preço:.2f}"
+        return f"{self.nome} - Quantidade: {self.qtd} - Preço: R${self.preco:.2f}"
         
 class Cliente:
     def __init__(self, id_cliente, nome):
@@ -101,15 +101,19 @@ class Sistema:
         if usuario and usuario.verificar_senha(senha_digitada):
             return usuario  # Login com sucesso
             
-        return None    
+        return None 
+     
+    def remover_usuario(self, login):
+       self.usuarios = [u for u in self.usuarios if u.login != login]
+      
         
 class Produto_Perecivel(Produto):
-    def __init__(self, nome, qtd, preço, data_validade):
-        super().__init__(nome, qtd, preço)
+    def __init__(self, nome, qtd, preco, data_validade):
+        super().__init__(nome, qtd, preco)
         self.data_validade = data_validade
         
     def visualizar_produto(self):
-        return f"{self.nome} - Quantidade: {self.qtd} - Preço: R${self.preço:.2f} - Validade: {self.data_validade}"
+        return f"{self.nome} - Quantidade: {self.qtd} - Preço: R${self.preco:.2f} - Validade: {self.data_validade}"
     
     def verificar_validade(self, data_atual):
         if data_atual > self.data_validade:
@@ -123,7 +127,7 @@ class Venda:
         self.cliente = cliente
         self.produto = produto
         self.quantidade = quantidade
-        self.valor_total = produto.preço * quantidade
+        self.valor_total = produto.preco * quantidade
         
     
     def processar_venda(self, sistema):

@@ -1,19 +1,38 @@
-<!-- Adicionamos o < que faltava e o action para a rota correta -->
-<form action="{{ url_for('cadastrar_usuario_web') }}" method="POST">
-    <label>Login:</label>
-    <input type="text" name="login" required>
-    
-    <label>Senha:</label>
-    <input type="password" name="senha" required>
-    
-    <button type="submit">Cadastrar</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Sistema de Vendas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro_usuario.css') }}">
+</head>
+<body>
 
-<!-- O restante do seu código de mensagens (flash) está correto! -->
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+    <h2 class="titulo-menor">Criar Nova Conta</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, message in messages %}
+            <div style="color: {% if category == 'danger' %}#dc3545{% else %}#28a745{% endif %}; padding: 8px; margin-bottom: 5px;">
+                {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form class="form-cadastro" action="{{ url_for('cadastrar_usuario_web') }}" method="POST">
+        <label class="titulo-interno">Login:</label>
+        <input type="text" name="login" required>
+        
+        <label class="titulo-interno">Senha:</label>
+        <input type="password" name="senha" required>
+        
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <p><a href="{{ url_for('login') }}">Voltar para o Login</a></p>
+
+</body>
+</html>

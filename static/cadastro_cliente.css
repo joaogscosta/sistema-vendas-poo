@@ -1,0 +1,126 @@
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E LAYOUT
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333333;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    color: #2c3e50;
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 8px;
+}
+
+h2:of-type(2) {
+    margin-top: 40px;
+}
+
+/* ==========================================================================
+   FORMULÁRIO DE CADASTRO
+   ========================================================================== */
+.form-cadastro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+/* Faz o botão ocupar as duas colunas no grid */
+.form-cadastro button {
+    grid-column: span 2;
+    background-color: #2ecc71; /* Verde clássico para ações de sucesso/cadastro */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.form-cadastro button:hover {
+    background-color: #27ae60;
+}
+
+.input-grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-grupo label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #7f8c8d;
+    margin-bottom: 6px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #2ecc71;
+    outline: none;
+}
+
+/* ==========================================================================
+   TABELA DE LISTAGEM DE CLIENTES
+   ========================================================================== */
+.tabela-container {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.tabela-clientes {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 15px;
+}
+
+.tabela-clientes th {
+    background-color: #f1f2f6;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 12px;
+    border-bottom: 2px solid #bdc3c7;
+}
+
+.tabela-clientes td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}

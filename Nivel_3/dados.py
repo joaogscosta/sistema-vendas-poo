@@ -12,7 +12,7 @@ def salvar_dados(meu_sistema):
             {"id": cliente.id, "nome": cliente.nome } for cliente in meu_sistema.clientes
         ],
         "produtos": [
-            {"nome": produto.nome, "qtd": produto.qtd, "preço": produto.preço} for produto in meu_sistema.estoque
+            {"nome": produto.nome, "qtd": produto.qtd, "preco": produto.preco} for produto in meu_sistema.estoque
         ],
         "vendas": [
             {"cliente_id": venda.cliente.id, "produto_nome": venda.produto.nome, 
@@ -46,7 +46,7 @@ def carregar_dados(meu_sistema):
                 
                 # Carregar Produtos
                 for p in dados.get("produtos", []):
-                    meu_sistema.cadastrar_produto(Produto(p["nome"], p["qtd"], p["preço"]))
+                    meu_sistema.cadastrar_produto(Produto(p["nome"], p["qtd"], p["preco"]))
                 
                 # Restaurar o Saldo do Caixa
                 meu_sistema.valor_caixa = dados.get("caixa", 0.0)

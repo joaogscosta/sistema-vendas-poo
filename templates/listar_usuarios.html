@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários do Sistema</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastro_produto.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        
+       {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="alerta-flash {{ category }}">
+            {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+        <h2>👥 Usuários Cadastrados</h2>
+        
+        <div class="tabela-container">
+            <table class="tabela-produtos">
+                <thead>
+                    <tr>
+                        <th>Login / Nome de Usuário</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in lista_usuarios %}
+                    <tr>
+                        <td><strong>{{ u.login }}</strong></td>
+                        <td>
+                            <a href="{{ url_for('excluir_usuario', login_usuario=u.login) }}" 
+                               style="color: #dc3545; text-decoration: none; font-weight: bold; padding: 4px 8px; border: 1px solid #dc3545; border-radius: 4px; font-size: 13px;"
+                               onclick="return confirm('Deseja mesmo remover o acesso de {{ u.login }}?')">
+                               ❌ Excluir
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2" class="sem-dados">Nenhum usuário cadastrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{{ url_for('index') }}" class="btn-voltar" style="display: inline-block; margin-top: 25px;">⬅ Voltar ao Painel Principal</a>
+    </div>
+
+</body>
+</html>
