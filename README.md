@@ -54,5 +54,5 @@ Permite rodar as funções de CRUD (Cadastro, Consulta, Atualização e Deleçã
 * Execute o arquivo principal do terminal: `python main.py`
 
 ### 
-Permite instanciar as classes puras do Nível 1 diretamente no console interativo do Python para realizar testes de bancada na lógica de negócios (como testar um método de venda ou validação de produto perecível).
+Permite instanciar as classes puras do Nível 1 diretamente no console interativo do Python. 
 Para rodar o teste, em nivel 1, execute test_sistema.py
